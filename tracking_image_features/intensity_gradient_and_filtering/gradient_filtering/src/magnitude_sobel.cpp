@@ -19,7 +19,7 @@ void magnitudeSobel() {
   // ToDo : Add your code here
   cv::Mat blurred = imgGray.clone();
   int filterSize = 5;
-  int stdDev = 2.0;
+  int stdDev = 1.0;
   cv::GaussianBlur(imgGray, blurred, cv::Size(filterSize, filterSize), stdDev);
 
   // create filter kernels using the cv::Mat datatype both for x and y
