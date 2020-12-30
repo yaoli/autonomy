@@ -3,13 +3,26 @@ cmake_minimum_required(VERSION 3.1.0)
 
 project(RealSenseDNNExample)
 
+# include realsense2
 find_library(REALSENSE2_LIB realsense2)
-find_package( OpenCV REQUIRED )
-include_directories( ${OpenCV_INCLUDE_DIRS} )
+if(REALSENSE2_LIB)
+  message(STATUS "Found RealSense2")
+else()
+  message(FATAL_ERROR "RealSense2 not found")
+endif()
 
+# include opencv
+find_package( OpenCV REQUIRED )
+if(OPENCV_FOUND)
+  message(STATUS "Found OpenCV at ${OpenCV_INCLUDE_DIRS}. Available libs: ${OpenCV_LIBS}")
+else()
+  message(FATAL_ERROR "OpenCV not found")
+endif()
+
+# compile target
+#include_directories( ${OpenCV_INCLUDE_DIRS} )
 add_executable(rs-dnn rs-dnn.cpp cv-helpers.hpp)
 set_property(TARGET rs-dnn PROPERTY CXX_STANDARD 11)
-
 target_link_libraries(rs-dnn ${REALSENSE2_LIB} ${OpenCV_LIBS})
 
 
